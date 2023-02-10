@@ -22,10 +22,10 @@ jobs:
         run: |
           python3 -m pip install --upgrade pip
           pip3 install ansible
+          printf '[defaults]\nroles_path=../' >ansible.cfg
           ansible-galaxy install -r tests/requirements.yml
       - name: Run playbook
         run: |
           ls -lah ../
-          printf '[defaults]\nroles_path=../' >ansible.cfg
           ansible-playbook tests/test.yml -i tests/inventory
           
