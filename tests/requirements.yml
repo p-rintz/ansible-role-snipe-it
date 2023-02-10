@@ -1,1 +1,2 @@
-- src: nginxinc.nginx
+collections:
+  - name: nginxinc.nginx_core
