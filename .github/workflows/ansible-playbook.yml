@@ -1,0 +1,31 @@
+name: ansible-role-snipe-it
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    name: Test on python ${{ matrix.node_version }} and ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        python_version: ['3.9', '3.10']
+        os: [ubuntu-22.04, ubuntu-20.04]
+
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python_version }}
+      - name: Install dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          pip3 install ansible
+          ansible-galaxy install -r tests/requirements.yml
+      - name: Run playbook
+        run: |
+          ls -lah ../
+          printf '[defaults]\nroles_path=../' >ansible.cfg
+          ansible-playbook tests/test.yml -i tests/inventory
+          
