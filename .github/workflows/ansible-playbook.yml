@@ -32,4 +32,4 @@ jobs:
           command: ansible-galaxy install -r tests/requirements.yml
       - name: Run playbook
         run: |
-          ansible-playbook tests/test.yml -i tests/inventory
+          ansible-playbook tests/test-gha.yml -i tests/inventory
