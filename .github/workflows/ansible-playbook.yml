@@ -26,7 +26,7 @@ jobs:
       - name: Install ansible-galaxy requirements
         uses: nick-fields/retry@v2
         with:
-          timeout_seconds: 15
+          timeout_seconds: 180
           max_attempts: 3
           retry_on: error
           command: ansible-galaxy install -r tests/requirements.yml
