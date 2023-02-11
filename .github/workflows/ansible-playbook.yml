@@ -4,11 +4,11 @@ on: [push, pull_request]
 
 jobs:
   test:
-    name: Test on python ${{ matrix.node_version }} and ${{ matrix.os }}
+    name: Test on python ${{ matrix.python_version }} and ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        python_version: ['3.9', '3.10']
+        python_version: ['3.9', '3.10', '3.11']
         os: [ubuntu-22.04, ubuntu-20.04]
 
 
@@ -26,6 +26,4 @@ jobs:
           ansible-galaxy install -r tests/requirements.yml
       - name: Run playbook
         run: |
-          ls -lah ../
           ansible-playbook tests/test.yml -i tests/inventory
-          
