@@ -6,6 +6,19 @@
     - ansible-role-snipe-it
 
   tasks:
+  - name: Remove default vhost in nginx
+    ansible.builtin.file:
+      path: /etc/nginx/conf.d/default.conf
+      state: absent
+
+  - name: Make sure nginx service is restarted
+    ansible.builtin.systemd:
+      state: restarted
+      name: nginx
+
+  - name: Execute lsof 
+    ansible.builtin.shell: sudo lsof -i -P
+
   - name: Test reachability of /setup
     ansible.builtin.uri:
       url: "http://localhost/setup"
