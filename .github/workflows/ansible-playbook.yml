@@ -23,7 +23,13 @@ jobs:
           python3 -m pip install --upgrade pip
           pip3 install ansible
           printf '[defaults]\nroles_path=../' >ansible.cfg
-          ansible-galaxy install -r tests/requirements.yml
+      - name: Install ansible-galaxy requirements
+        uses: nick-fields/retry@v2
+        with:
+          timeout_seconds: 15
+          max_attempts: 3
+          retry_on: error
+          command: ansible-galaxy install -r tests/requirements.yml
       - name: Run playbook
         run: |
           ansible-playbook tests/test.yml -i tests/inventory
