@@ -18,9 +18,6 @@
       name: nginx
     become: true
 
-  - name: Execute lsof 
-    ansible.builtin.shell: sudo lsof -i -P
-
   - name: Test reachability of /setup
     ansible.builtin.uri:
       url: "http://localhost/setup"
