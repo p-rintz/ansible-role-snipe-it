@@ -4,3 +4,10 @@
   remote_user: root
   roles:
     - ansible-role-snipe-it
+
+  tasks:
+  - name: Test reachability of /setup
+    ansible.builtin.uri:
+      url: "http://localhost/setup"
+      method: GET
+    register: _result
