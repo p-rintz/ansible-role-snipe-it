@@ -10,11 +10,13 @@
     ansible.builtin.file:
       path: /etc/nginx/conf.d/default.conf
       state: absent
+    become: true
 
   - name: Make sure nginx service is restarted
     ansible.builtin.systemd:
       state: restarted
       name: nginx
+    become: true
 
   - name: Execute lsof 
     ansible.builtin.shell: sudo lsof -i -P
